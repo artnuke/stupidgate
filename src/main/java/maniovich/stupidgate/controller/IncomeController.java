@@ -2,6 +2,8 @@ package maniovich.stupidgate.controller;
 
 import maniovich.stupidgate.redis.TransactionRepository;
 import maniovich.stupidgate.transaction.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class IncomeController{
-
+    Logger logger = LoggerFactory.getLogger(IncomeController.class);
     @Autowired
     private TransactionRepository transactionRepository;
     @GetMapping
@@ -21,18 +23,18 @@ public class IncomeController{
         Transaction transaction = new Transaction();
         RequestsController httpHandler = new RequestsController(restTemplate);
         httpHandler.SetUrl(url);
+        logger.info("Talking to " + url);
+
         transactionRepository.Create(transaction);
+        logger.info("Transaction created with id " + transaction.GetTransactionUUID());
+        logger.info("Transaction state (is Completed): " + transaction.GetTransactionState());
+
         if(httpHandler.MakeRequest(transaction.GetTransactionUUID()).getStatusCodeValue() == 200){
-            System.out.println("Transaction state " + transactionRepository.GetTransactionState
-                            (transaction.GetTransactionUUID())
-                    .GetTransactionState());
-            transaction.ChangeState(true);
+            logger.info("Status code 200, Changing transaction state");
+            logger.info("Transaction state (is Completed): " + transaction.GetTransactionState());
             transactionRepository.ChangeTransactionState(transaction);
         }
-        System.out.println("StatusCode = " + httpHandler.MakeRequest(transaction.GetTransactionUUID()).getStatusCode());
-        System.out.println("Body: " + httpHandler.MakeRequest(transaction.GetTransactionUUID()).getBody());
-        System.out.println("Transaction state " + transactionRepository.GetTransactionState
-                (transaction.GetTransactionUUID()).GetTransactionState());
+
         return httpHandler.MakeRequest(transaction.GetTransactionUUID()).getBody();
     }
 }
