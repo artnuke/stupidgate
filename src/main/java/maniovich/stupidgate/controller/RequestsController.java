@@ -8,11 +8,11 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
-public class HttpHandler {
+public class RequestsController {
     private final RestTemplate restTemplate;
 
     public String url;
-    public HttpHandler(RestTemplateBuilder restTemplateBuilder) {
+    public RequestsController(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
 

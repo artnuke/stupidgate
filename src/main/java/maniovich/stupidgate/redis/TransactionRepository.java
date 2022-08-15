@@ -1,4 +1,4 @@
-package maniovich.stupidgate.Reddis;
+package maniovich.stupidgate.redis;
 
 import maniovich.stupidgate.transaction.Transaction;
 import org.springframework.data.redis.core.HashOperations;
