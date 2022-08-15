@@ -9,7 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 public class RedisConfiguration {
     public static JedisConnectionFactory redisConnectionFactory() {
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-        jedisConnectionFactory.setHostName("localhost");
+        jedisConnectionFactory.setHostName("172.17.0.2");
         jedisConnectionFactory.setPort(6379);
         jedisConnectionFactory.afterPropertiesSet();
         return jedisConnectionFactory;
