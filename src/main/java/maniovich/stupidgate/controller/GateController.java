@@ -32,7 +32,7 @@ public class GateController {
         if(httpHandler.MakeRequest(transaction.GetTransactionUUID()).getStatusCodeValue() == 200){
             logger.info("Status code 200, Changing transaction state");
             transaction.ChangeState();
-            transactionRepository.ChangeTransactionState(transaction);
+            transactionRepository.UpdateTransaction(transaction);
             logger.info("Transaction state (is Completed): " + transaction.GetTransactionState());
 
         }
