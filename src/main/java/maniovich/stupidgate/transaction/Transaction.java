@@ -22,7 +22,7 @@ public class Transaction implements Serializable {
     public boolean GetTransactionState(){
         return transactionState;
     }
-    public void ChangeState(boolean transactionState) {
-        this.transactionState = transactionState;
+    public void ChangeState() {
+        this.transactionState = !transactionState;
     }
 }

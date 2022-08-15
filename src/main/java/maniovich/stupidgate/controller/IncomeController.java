@@ -31,11 +31,13 @@ public class IncomeController{
 
         if(httpHandler.MakeRequest(transaction.GetTransactionUUID()).getStatusCodeValue() == 200){
             logger.info("Status code 200, Changing transaction state");
+            transaction.ChangeState();
             transactionRepository.ChangeTransactionState(transaction);
             logger.info("Transaction state (is Completed): " + transaction.GetTransactionState());
 
         }
 
+        logger.info("Done!: " + transaction.GetTransactionUUID() + " has been proceed");
         return httpHandler.MakeRequest(transaction.GetTransactionUUID()).getBody();
     }
 }
