@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class IncomeController{
-    Logger logger = LoggerFactory.getLogger(IncomeController.class);
+public class GateController {
+    Logger logger = LoggerFactory.getLogger(GateController.class);
     @Autowired
     private TransactionRepository transactionRepository;
     @GetMapping

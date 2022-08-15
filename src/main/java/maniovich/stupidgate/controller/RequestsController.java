@@ -1,5 +1,7 @@
 package maniovich.stupidgate.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -9,12 +11,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class RequestsController {
-    private final RestTemplate restTemplate;
 
+    private final RestTemplate restTemplate;
+    Logger logger = LoggerFactory.getLogger(GateController.class);
     public String url;
     public RequestsController(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
+
 
     public void SetUrl(String url)
     {
