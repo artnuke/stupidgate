@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class IncomeController{
-
-
     @Autowired
     private TransactionRepository transactionRepository;
     @GetMapping
@@ -22,10 +20,7 @@ public class IncomeController{
         Transaction transaction = new Transaction();
         RequestsController httpHandler = new RequestsController(restTemplate);
         httpHandler.SetUrl(url);
-
         transactionRepository.Create(transaction);
-
-
         if(httpHandler.MakeRequest(transaction.GetTransactionUUID()).getStatusCodeValue() == 200){
             System.out.println("Transaction state " + transactionRepository.GetTransactionState
                             (transaction.GetTransactionUUID())
@@ -33,13 +28,10 @@ public class IncomeController{
             transaction.ChangeState(true);
             transactionRepository.ChangeTransactionState(transaction);
         }
-
         System.out.println("StatusCode = " + httpHandler.MakeRequest(transaction.GetTransactionUUID()).getStatusCode());
         System.out.println("Body: " + httpHandler.MakeRequest(transaction.GetTransactionUUID()).getBody());
         System.out.println("Transaction state " + transactionRepository.GetTransactionState
                 (transaction.GetTransactionUUID()).GetTransactionState());
         return httpHandler.MakeRequest(transaction.GetTransactionUUID()).getBody();
-
     }
-
 }
