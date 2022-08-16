@@ -25,10 +25,10 @@ public class RequestsController {
         this.url = url;
     }
 
-    public ResponseEntity<String> MakeRequest(String id )
+    public ResponseEntity<String> MakeRequest(String id, String data)
     {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(this.url)
-                .queryParam("id", id);
+                .queryParam("id", id).queryParam("data", data);
         ResponseEntity<String> responseEntity = restTemplate
                 .exchange(builder.toUriString(), HttpMethod.GET, null, String.class);
         return responseEntity;

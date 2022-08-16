@@ -14,7 +14,7 @@ class StupidgateApplicationTests {
     GateController gateController;
 
 
-    Transaction test = new Transaction();
+    //Transaction test = new Transaction();
 
     @Test
     void contextLoads() {
