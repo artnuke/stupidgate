@@ -1,7 +1,7 @@
 package maniovich.stupidgate.transaction;
 
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.json.JSONObject;
+
 import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
@@ -76,7 +76,7 @@ public class Transaction implements Serializable {
     }
 
     //METHODS
-    public JSONObject ToJSONObject() throws JSONException {
+    public JSONObject ToJSONObject() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", this.transactionUUID);
         jsonObject.put("state", this.transactionState);

@@ -5,7 +5,7 @@ import maniovich.stupidgate.transaction.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONException;
+
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +26,7 @@ public class GateController {
     }
     @GetMapping
     @RequestMapping("gate1")
-    public String MakeTransaction(@RequestParam String stupidSample) throws JSONException {
+    public String MakeTransaction(@RequestParam String stupidSample){
 
         String realm = "gate1";
         String url = "https://functions.yandexcloud.net/d4ecbfpgqphh14daohcn";
