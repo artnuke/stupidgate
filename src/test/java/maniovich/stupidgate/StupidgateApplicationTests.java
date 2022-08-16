@@ -17,7 +17,7 @@ class StupidgateApplicationTests {
 
     @Test
     void contextLoads() {
-//        assertEquals();
+        //assertEquals();
     }
 
 }

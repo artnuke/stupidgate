@@ -25,29 +25,36 @@ public class GateController {
     @GetMapping
     @RequestMapping("gate1")
     public String MakeTransaction() {
-
+        String REALM = "gate1";
         String url = "https://functions.yandexcloud.net/d4ecbfpgqphh14daohcn";
         RestTemplateBuilder restTemplate = new RestTemplateBuilder();
         Transaction transaction = new Transaction();
+        transaction.SetTransactionRealm(REALM);
         RequestsController httpHandler = new RequestsController(restTemplate);
         httpHandler.SetUrl(url);
 
         logger.info("Talking to " + url);
 
         transactionRepository.Create(transaction);
-        logger.info("Transaction created with id " + transaction.GetTransactionUUID());
+        logger.info("Transaction created with id " + transaction.GetTransactionUUID() +
+                " at " + transaction.GetTransactionCreationTimeUTC() );
+
+        logger.info("Transaction realm: " + transaction.GetTransactionRealm());
         logger.info("Transaction state (is Completed): " + transaction.GetTransactionState());
 
         ResponseEntity<String> response = httpHandler.MakeRequest(transaction.GetTransactionUUID());
-
-        if(response.getStatusCodeValue() == 200){
+        transaction.SetTransactionResponseStatusCode(response.getStatusCodeValue());
+        if(transaction.GetTransactionResponseStatusCode() == 200) {
             logger.info("Status code 200, Changing transaction state.");
+            transaction.SetTransactionEndTimeUTC();
             transaction.ChangeState();
             transactionRepository.UpdateTransaction(transaction);
             logger.info("Transaction state (is Completed): " + transaction.GetTransactionState());
         }
 
-        logger.info("Done! - " + transaction.GetTransactionUUID() + " has been proceed.");
+        logger.info("Done! - " + transaction.GetTransactionUUID() +
+                " has been proceed at " + transaction.GetTransactionEndTimeUTC());
+
 
         return response.getBody();
     }
