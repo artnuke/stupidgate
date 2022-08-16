@@ -36,7 +36,6 @@ public class GateController {
 
         logger.info("Talking to " + url);
 
-
         logger.info("Transaction created with id " + transaction.GetTransactionUUID() +
                 " at " + transaction.GetTransactionCreationTimeUTC() );
 

@@ -10,5 +10,10 @@ docker pull ghcr.io/artnuke/stupidgate:latest
 ```
 3) Run StupidGate Container.
 ```
-docker run --rm -p 6969:6969 ghcr.io/artnuke/stupidgate:latest
+docker container run \
+-p 6969:6969 \
+--env spring.redis.host=<REDIS HOSTNAME> \
+--env spring.redis.port=<REDIS PORT> \
+ghcr.io/artnuke/stupidgate
+
 ```
