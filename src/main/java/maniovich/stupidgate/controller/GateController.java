@@ -29,13 +29,14 @@ public class GateController {
         String url = "https://functions.yandexcloud.net/d4ecbfpgqphh14daohcn";
         RestTemplateBuilder restTemplate = new RestTemplateBuilder();
         Transaction transaction = new Transaction();
+        transactionRepository.Create(transaction);
         transaction.SetTransactionRealm(REALM);
         RequestsController httpHandler = new RequestsController(restTemplate);
         httpHandler.SetUrl(url);
 
         logger.info("Talking to " + url);
 
-        transactionRepository.Create(transaction);
+
         logger.info("Transaction created with id " + transaction.GetTransactionUUID() +
                 " at " + transaction.GetTransactionCreationTimeUTC() );
 
