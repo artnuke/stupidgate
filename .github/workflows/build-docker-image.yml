@@ -27,6 +27,8 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: $IMAGE_NAME:latest
+          options: -p 6969:6969      
+            
       - name: Tag & publish to GitHub Container Registry
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
