@@ -25,12 +25,20 @@ jobs:
         run: mvn spring-boot:build-image -Dspring-boot.build-image.imageName=$IMAGE_NAME
       - name: Run $IMAGE_NAME Container
         run: docker run -d $IMAGE_NAME -p 6969:6969
-        
-      - name: Check if $IMAGE_NAME is alive
-        run: |
-          while [ "$(curl -s localhost:6969/areyoualive)" != "iamalive" ]; do
-            sleep 1
-          done
+      - name: Wait For Response
+  # You may pin to the exact commit or the version.
+  # uses: nev7n/wait_for_response@7fef3c1a6e8939d0b09062f14fec50d3c5d15fa1
+        uses: nev7n/wait_for_response@v1.0.1
+        with:
+    # URL to poll
+          url: http://localhost:6969/areyoualive
+    # Response code to wait for
+          responseCode: 200
+    # Timeout before giving up in ms
+          timeout: 30000
+    # Interval between polling in ms
+          interval: 2000
+
             
       - name: Tag & publish to GitHub Container Registry
         run: |
