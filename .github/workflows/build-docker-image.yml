@@ -24,7 +24,7 @@ jobs:
       - name: Build Docker Image
         run: mvn spring-boot:build-image -Dspring-boot.build-image.imageName=$IMAGE_NAME
       - name: Run Docker Container
-        run: docker run $IMAGE_NAME:latest -p 6969:6969
+        run: docker run -d $IMAGE_NAME:latest -p 6969:6969
       - name: docker ps
         run: docker ps
       - name: Tag & publish to GitHub Container Registry
