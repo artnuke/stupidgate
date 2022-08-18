@@ -23,10 +23,10 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Build Docker Image
         run: mvn spring-boot:build-image -Dspring-boot.build-image.imageName=$IMAGE_NAME
-      - name: Run Docker Container
-        run: docker run -d $IMAGE_NAME:latest -p 6969:6969
-      - name: docker ps
-        run: docker ps
+      - name: Docker Run Action
+        uses: addnab/docker-run-action@v3
+        with:
+          image: $IMAGE_NAME:latest
       - name: Tag & publish to GitHub Container Registry
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
