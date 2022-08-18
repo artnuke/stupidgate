@@ -28,8 +28,7 @@ jobs:
         
       - name: Check if $IMAGE_NAME is alive
         run: |
-          while [ "$(curl -s 'localhost:6969/areyoualive')" != "iamalive" ]; do
-            echo -n '.'
+          while [ "$(curl -s localhost:6969/areyoualive)" != "iamalive" ]; do
             sleep 1
           done
             
