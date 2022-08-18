@@ -22,7 +22,7 @@ public class GateController {
     @GetMapping
     @RequestMapping("areyoualive")
     public String IamAlive(){
-        return "I am alive";
+        return "iamalive";
     }
     @GetMapping
     @RequestMapping("gate1")
